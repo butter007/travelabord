@@ -13,4 +13,8 @@ def index():
 @main.route("/add", methods=['GET', 'POST'])
 def add():
     form = BudgetForm()
+    if form.validate_on_submit():
+        print(form.cashtypes.data)
+        print(form.delegationName.data)
+        return render_template('add.html', form=form)
     return render_template('add.html', form=form)
