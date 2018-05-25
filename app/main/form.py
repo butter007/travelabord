@@ -17,3 +17,4 @@ class BudgetForm(FlaskForm):
     publicfees = StringField('公杂费')
     traffic = StringField('交通费')
     submit = SubmitField('提交')
+

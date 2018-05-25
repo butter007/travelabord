@@ -2,10 +2,43 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Flasky{% endblock %}
+<style>
 
+</style>
 {% block page_content %}
+<form>
 <div class="page-header">
-    <h1>Hello, Stranger!</h1>
+    <h3>出国用汇申请（预算）书</h3>
 </div>
-{{ wtf.quick_form(form) }}
+
+<div>
+    <p><label>中国银行</label><input type="text" name="province" style="border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:black;width: 100px" ><label>分（支行）</label></p>
+</div>
+
+<div>
+    <p><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我团（组）因公申请出国，已经</label><input style="border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:black;" name="approve"><label>批准。</label></p>
+</div>
+
+<div>
+    <p><label>现申请出国用汇（预算）如下，请予审核：</label></p>
+</div>
+    <div>
+    <table border="1">
+        <tr>
+           <th colspan="3">代表团（组）名称</th>
+           <td colspan="5"><input></td>
+        </tr>
+        <tr>
+            <th colspan="3">团（组）长姓名</th>
+            <td colspan="5"><input></td>
+        </tr>
+        <tr>
+            <th rowspan="3" colspan="2">批准出访天数</th>
+            <td><input></td>
+            <th rowspan="3" colspan="2">出访地区</th>
+            <td><input></td>
+        </tr>
+    </table>
+    </div>
+</form>
 {% endblock %}
