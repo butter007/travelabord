@@ -2,11 +2,14 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Flasky{% endblock %}
+{% block head %}
+{{ super() }}
 <style>
-
+    .gridinput{border-style: none}
 </style>
+{% endblock %}
 {% block page_content %}
-<form>
+<form action="{{ url_for('main.addexecute') }}" method="post">
 <div class="page-header">
     <h3>出国用汇申请（预算）书</h3>
 </div>
@@ -25,20 +28,126 @@
     <div>
     <table border="1">
         <tr>
-           <th colspan="3">代表团（组）名称</th>
-           <td colspan="5"><input></td>
+           <th colspan="2">代表团（组）名称</th>
+           <td colspan="8"><input name="teamname" class="gridinput" ></td>
         </tr>
         <tr>
-            <th colspan="3">团（组）长姓名</th>
-            <td colspan="5"><input></td>
+            <th colspan="2">团（组）长姓名</th>
+            <td colspan="3"><input name="teamleader" class="gridinput"></td>
+            <th >出国人数</th>
+            <td colspan="3"> <input name="peoples" class="gridinput"></td>
+            <th >人</th>
         </tr>
         <tr>
-            <th rowspan="3" colspan="2">批准出访天数</th>
-            <td><input></td>
-            <th rowspan="3" colspan="2">出访地区</th>
-            <td><input></td>
+            <th rowspan="3" colspan="1">批准出访天数</th>
+            <td rowspan="3" colspan="1"><input name="days" class="gridinput" height="10px"></td>
+            <th rowspan="3" colspan="1">出访地区</th>
+            <th>1</th>
+            <td><input name="area1" class="gridinput"></td>
+            <th rowspan="3" colspan="1">其中</th>
+            <th>1</th>
+            <th>一般人员</th>
+            <td><input name="level1" class="gridinput"></td>
+            <th>人</th>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td><input name="area2" class="gridinput"></td>
+            <th>2</th>
+            <th>正副司局级</th>
+            <td><input name="leve2" class="gridinput"></td>
+            <th>人</th>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td><input name="area2" class="gridinput"></td>
+            <th>3</th>
+            <th>正副部级</th>
+            <td><input name="level3" class="gridinput"></td>
+            <th>人</th>
+        </tr>
+        <tr>
+            <th colspan="2">外汇种类</th>
+            <td colspan="3"><input name="cashtype" class="gridinput"></td>
+            <th colspan="2">预计出境日期</th>
+            <th colspan="3"><input name="expectdate" class="gridinput"></th>
+        </tr>
+        <tr>
+            <th colspan="2">用汇项目</th>
+            <th colspan="2">预算数（美元）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2">核批数（美元）</th>
+            <th colspan="4">说明</th>
+        </tr>
+        <tr>
+            <th colspan="2">A机票</th>
+            <th colspan="2"><input name="fee12" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee13" class="gridinput"></th>
+            <th colspan="4"><input name="fee14" class="gridinput"></th>
+        </tr>
+        <tr>
+            <th colspan="2">C伙食费</th>
+            <th colspan="2"><input name="fee22" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee23" class="gridinput"></th>
+            <th colspan="4"><input name="fee24" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">D住宿费</th>
+            <th colspan="2"><input name="fee32" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee33" class="gridinput"></th>
+            <th colspan="4"><input name="fee34" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">E公杂费</th>
+            <th colspan="2"><input name="fee42" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee43" class="gridinput"></th>
+            <th colspan="4"><input name="fee44" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">F交通费</th>
+            <th colspan="2"><input name="fee52" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee53" class="gridinput"></th>
+            <th colspan="4"><input name="fee54" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">G个人另用</th>
+            <th colspan="2"><input name="fee62" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee63" class="gridinput"></th>
+            <th colspan="4"><input name="fee64" class="gridinput"></th>
+        </tr>
+
+         <tr>
+            <th colspan="2">I备用金</th>
+            <th colspan="2"><input name="fee72" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee73" class="gridinput"></th>
+            <th colspan="4"><input name="fee74" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">J摊位费</th>
+            <th colspan="2"><input name="fee82" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee83" class="gridinput"></th>
+            <th colspan="4"><input name="fee84" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">其他</th>
+            <th colspan="2"><input name="fee92" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee93" class="gridinput"></th>
+            <th colspan="4"><input name="fee94" class="gridinput"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2">合计</th>
+            <th colspan="2"><input name="fee102" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee103" class="gridinput"></th>
+            <th colspan="4"><input name="fee104" class="gridinput"></th>
         </tr>
     </table>
     </div>
+    <div><p><input type="submit" value="提交"></p></div>
 </form>
 {% endblock %}

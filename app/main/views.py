@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, current_app
+from flask import render_template, session, redirect, url_for, current_app,request
 
 from app.main.form import BudgetForm
 from .. import db
@@ -18,3 +18,9 @@ def add():
         print(form.delegationName.data)
         return render_template('add.html', form=form)
     return render_template('add.html', form=form)
+
+@main.route("/addexecute", methods=['POST'])
+def addexecute():
+    print (request.form['province'])
+    print (request.form['approve'])
+    return render_template('index.html')
