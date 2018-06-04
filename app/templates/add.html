@@ -6,6 +6,7 @@
 {{ super() }}
 <style>
     .gridinput{border-style: none}
+    th{text-align:center}
 </style>
 {% endblock %}
 {% block page_content %}
@@ -26,28 +27,28 @@
     <p><label>现申请出国用汇（预算）如下，请予审核：</label></p>
 </div>
     <div>
-    <table border="1">
-        <tr>
-           <th colspan="2">代表团（组）名称</th>
-           <td colspan="8"><input name="teamname" class="gridinput" ></td>
+    <table border="1" table-layout="fixed"  >
+        <tr >
+           <th colspan="2" >代表团（组）名称</th>
+           <td colspan="8"><input name="teamname" class="gridinput" style="width:840px" ></td>
         </tr>
         <tr>
             <th colspan="2">团（组）长姓名</th>
-            <td colspan="3"><input name="teamleader" class="gridinput"></td>
+            <td colspan="3"><input name="teamleader" class="gridinput" style="width:468px"></td>
             <th >出国人数</th>
-            <td colspan="3"> <input name="peoples" class="gridinput"></td>
+            <td colspan="3"> <input name="peoples" class="gridinput" style="width:280px"></td>
             <th >人</th>
         </tr>
         <tr>
-            <th rowspan="3" colspan="1">批准出访天数</th>
-            <td rowspan="3" colspan="1"><input name="days" class="gridinput" height="10px"></td>
+            <th rowspan="3" colspan="1" style="word-wrap:break-word;word-break: break-all">批准出访天数</th>
+            <td rowspan="3" colspan="1"><input name="days" class="gridinput" style="height: 66px"></td>
             <th rowspan="3" colspan="1">出访地区</th>
             <th>1</th>
             <td><input name="area1" class="gridinput"></td>
             <th rowspan="3" colspan="1">其中</th>
             <th>1</th>
             <th>一般人员</th>
-            <td><input name="level1" class="gridinput"></td>
+            <td><input name="level1" class="gridinput" style="width:196px;"></td>
             <th>人</th>
         </tr>
         <tr>
@@ -55,7 +56,7 @@
             <td><input name="area2" class="gridinput"></td>
             <th>2</th>
             <th>正副司局级</th>
-            <td><input name="leve2" class="gridinput"></td>
+            <td><input name="leve2" class="gridinput" style="width:196px;"></td>
             <th>人</th>
         </tr>
         <tr>
@@ -63,7 +64,7 @@
             <td><input name="area2" class="gridinput"></td>
             <th>3</th>
             <th>正副部级</th>
-            <td><input name="level3" class="gridinput"></td>
+            <td><input name="level3" class="gridinput" style="width:196px;"></td>
             <th>人</th>
         </tr>
         <tr>
@@ -80,7 +81,7 @@
         </tr>
         <tr>
             <th colspan="2">A机票</th>
-            <th colspan="2"><input name="fee12" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee12" class="gridinput" width="300px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <th colspan="2"><input name="fee13" class="gridinput"></th>
             <th colspan="4"><input name="fee14" class="gridinput"></th>
         </tr>
@@ -100,7 +101,7 @@
 
         <tr>
             <th colspan="2">E公杂费</th>
-            <th colspan="2"><input name="fee42" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="2"><input name="fee42" class="gridinput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <th colspan="2"><input name="fee43" class="gridinput"></th>
             <th colspan="4"><input name="fee44" class="gridinput"></th>
         </tr>
