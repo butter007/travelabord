@@ -8,6 +8,14 @@
     .gridinput{border-style: none}
     th{text-align:center}
 </style>
+<script src="../static/laydate/laydate.js"></script>
+
+
+<script>
+laydate.render({
+  elem: '#datepicker' //指定元素
+});
+</script>
 {% endblock %}
 {% block page_content %}
 <form action="{{ url_for('main.addexecute') }}" method="post">
@@ -69,9 +77,16 @@
         </tr>
         <tr>
             <th colspan="2">外汇种类</th>
-            <td colspan="3"><input name="cashtype" class="gridinput" style="width:468px;"></td>
+            <td colspan="3"><select name="cashtype" class="gridinput" style="width:468px;">
+                <option value="0">选择货币</option>
+                <option value="USD">美元</option>
+                <option value="EUR">欧元</option>
+                <option value="JPY">日元</option>
+                <option value="HKD">港币</option>
+                <option value="GBP">英镑</option>
+            </td>
             <th colspan="2">预计出境日期</th>
-            <th colspan="3"><input name="expectdate" class="gridinput" style="width:284px;"></th>
+            <td colspan="3"><input name="expectdate" class="gridinput" style="width:284px;" id="datepicker" type="text"></td>
         </tr>
         <tr>
             <th colspan="2">用汇项目</th>
