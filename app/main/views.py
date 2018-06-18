@@ -1,7 +1,7 @@
-from flask import render_template, session, redirect, url_for, current_app,request
+from flask import render_template, session, redirect, url_for, current_app, request
 
 from app.main.form import BudgetForm
-from .. import db
+from ..models import StandardFee
 from . import main
 
 
@@ -12,15 +12,16 @@ def index():
 
 @main.route("/add", methods=['GET', 'POST'])
 def add():
-    form = BudgetForm()
-    if form.validate_on_submit():
-        print(form.cashtypes.data)
-        print(form.delegationName.data)
-        return render_template('add.html', form=form)
-    return render_template('add.html', form=form)
+    countryDict = {}
+    standardfeelist = StandardFee.query.all()
+    for item in standardfeelist:
+        countryDict[item.id] = item.country
+    print(countryDict)
+    return render_template('add.html', data=countryDict.items())
+
 
 @main.route("/addexecute", methods=['POST'])
 def addexecute():
-    print (request.form['province'])
-    print (request.form['approve'])
+    print(request.form['province'])
+    print(request.form['approve'])
     return render_template('index.html')
