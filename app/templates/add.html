@@ -195,8 +195,8 @@ laydate.render({
     $("#calculate").click(function(){
         var days =$("#days").val();
         var peoples = $("#peoples").val();
-        $("#fee22").val(days*peoples)
-        for(o in data) {
+//        $("#fee22").val(days*peoples)
+        for(o in {{ data }}) {
             alert (o.id)
         }
     });

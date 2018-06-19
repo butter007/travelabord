@@ -1,4 +1,5 @@
 from flask import render_template, session, redirect, url_for, current_app, request
+import json
 
 from app.main.form import BudgetForm
 from ..models import StandardFee
@@ -22,7 +23,8 @@ def add():
         feeList.append(item.boardwages)
         feeList.append(item.extrafee)
         countryFeeDict[item.id] = feeList
-    print (countryFeeDict)
+    jsonstr = json.dumps([u.get_serialize() for u in standardfeelist])
+    print (jsonstr)
     return render_template('add.html', data=countryFeeDict.items())
 
 
