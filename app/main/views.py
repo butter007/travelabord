@@ -12,12 +12,18 @@ def index():
 
 @main.route("/add", methods=['GET', 'POST'])
 def add():
-    countryDict = {}
+    countryFeeDict = {}
     standardfeelist = StandardFee.query.all()
     for item in standardfeelist:
-        countryDict[item.id] = item.country
-    print(countryDict)
-    return render_template('add.html', data=countryDict.items())
+        feeList = []
+        feeList.append(item.country)
+        feeList.append(item.type)
+        feeList.append(item.hotelexpense)
+        feeList.append(item.boardwages)
+        feeList.append(item.extrafee)
+        countryFeeDict[item.id] = feeList
+    print (countryFeeDict)
+    return render_template('add.html', data=countryFeeDict.items())
 
 
 @main.route("/addexecute", methods=['POST'])

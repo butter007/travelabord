@@ -36,12 +36,12 @@
             <th colspan="2">团（组）长姓名</th>
             <td colspan="3"><input name="teamleader" class="gridinput" style="width:468px"></td>
             <th >出国人数</th>
-            <td colspan="3"> <input name="peoples" class="gridinput" style="width:280px"></td>
+            <td colspan="3"> <input name="peoples" class="gridinput" style="width:280px" id="peoples"></td>
             <th >人</th>
         </tr>
         <tr>
             <th rowspan="3" colspan="1" style="word-wrap:break-word;word-break: break-all">批准出访天数</th>
-            <td rowspan="3" colspan="1"><input name="days" class="gridinput" style="height: 66px"></td>
+            <td rowspan="3" colspan="1"><input name="days" class="gridinput" style="height: 66px" id="days"></td>
             <th rowspan="3" colspan="1">出访地区</th>
             <th>1</th>
             <td><select name="area1" class="gridinput" style="width:275px;" id="area1"></select></td>
@@ -61,7 +61,7 @@
         </tr>
         <tr>
             <th>3</th>
-            <td><select name="area3" class="gridinput" style="width:275px;"></select></td>
+            <td><select name="area3" class="gridinput" style="width:275px;" id="area3"></select></td>
             <th>3</th>
             <th>正副部级</th>
             <td><input name="level3" class="gridinput" style="width:196px;"></td>
@@ -95,7 +95,7 @@
         </tr>
         <tr>
             <th colspan="2">C伙食费</th>
-            <td colspan="2"><input name="fee22" class="gridinput" style="width:190px;"></td>
+            <td colspan="2"><input name="fee22" class="gridinput" style="width:190px;" id="fee22"></td>
             <td colspan="2"><input name="fee23" class="gridinput" style="width:348px;"></td>
             <td colspan="4"><input name="fee24" class="gridinput" style="width:298px;"></td>
         </tr>
@@ -157,8 +157,8 @@
         </tr>
     </table>
     </div>
-    <div><p><input type="submit" value="提交"></p></div>
-    <div><p><input type="button" value="按钮" id="bu1"></p></div>
+    <div><input type="button" value="计算" id="calculate"><input type="submit" value="提交"><input type="button" value="取消"></div>
+
 </form>
 {% endblock %}
 
@@ -176,11 +176,30 @@ laydate.render({
 
 <script type="text/javascript">
     $(document).ready(function(){
-
+        $("#area1").append("<option value=''></option>")
+        $("#area2").append("<option value=''></option>")
+        $("#area3").append("<option value=''></option>")
         {% for key,value in data %}
-            $("#area1").append("<option country={{ key }}>{{ value }}</option>")
+            $("#area1").append("<option value={{ key }}>{{ value[0] }}</option>")
+        {% endfor %}
+        {% for key,value in data %}
+            $("#area2").append("<option value={{ key }}>{{ value[0] }}</option>")
+        {% endfor %}
+        {% for key,value in data %}
+            $("#area3").append("<option value={{ key }}>{{ value[0] }}</option>")
         {% endfor %}
 });
+    $("#days").blur(function(){
+
+    });
+    $("#calculate").click(function(){
+        var days =$("#days").val();
+        var peoples = $("#peoples").val();
+        $("#fee22").val(days*peoples)
+        for(o in data) {
+            alert (o.id)
+        }
+    });
 </script>
 {% endblock %}
 
