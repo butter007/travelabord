@@ -1,49 +1,13 @@
 # -*- coding:utf-8 -*-
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-import datetime
-import decimal
 
 
 
-class AutoSerialize(object):
-    '''
-    Mixin for retrieving public fields of model in json-compatible format
-    '''
-    __allowed_in_json__ = None
 
-    def get_serialize(self, exclude=()):
-        '''Returns model's PUBLIC data for jsonify'''
-        data = {}
-        keys = self._sa_class_manager.mapper.mapped_table.columns
-        public = self.__allowed_in_json__
-        for col in keys:
-            if public is not None:
-                if col.name not in public:
-                    continue
-            if col.name in exclude:
-                continue
-            data[col.name] = self._serialize(getattr(self, col.name))
-        return data
 
-    @classmethod
-    def _serialize(cls, value):
-        if type(value) in (int, float, bool):
-            ret = str(value)
-        elif type(value) is str:
-            ret = value.encode('utf-8')
-        elif isinstance(value, datetime.date):
-            ret = value.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(value, datetime.time) or isinstance(value, datetime.datetime):
-            ret = value.isoformat()
-        elif isinstance(value, decimal.Decimal):
-            ret = str(value)
-        else:
-            ret = value
 
-        return ret
-
-class StandardFee(db.Model,AutoSerialize):
+class StandardFee(db.Model):
     __tablename__ = 'standardfees'
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(64), unique=True)

@@ -192,13 +192,16 @@ laydate.render({
     $("#days").blur(function(){
 
     });
+    var fees = {{ jsonstr | safe }}
+//
+
     $("#calculate").click(function(){
         var days =$("#days").val();
         var peoples = $("#peoples").val();
 //        $("#fee22").val(days*peoples)
-        for(o in {{ data }}) {
-            alert (o.id)
-        }
+        $.each(fees,function (i,n) {
+            alert(fees[i][0])
+        })
     });
 </script>
 {% endblock %}

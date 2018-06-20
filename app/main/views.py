@@ -23,9 +23,9 @@ def add():
         feeList.append(item.boardwages)
         feeList.append(item.extrafee)
         countryFeeDict[item.id] = feeList
-    jsonstr = json.dumps([u.get_serialize() for u in standardfeelist])
+    jsonstr = json.dumps(countryFeeDict)
     print (jsonstr)
-    return render_template('add.html', data=countryFeeDict.items())
+    return render_template('add.html', jsonstr=jsonstr)
 
 
 @main.route("/addexecute", methods=['POST'])
