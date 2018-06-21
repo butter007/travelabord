@@ -25,7 +25,7 @@ def add():
         countryFeeDict[item.id] = feeList
     jsonstr = json.dumps(countryFeeDict)
     print (jsonstr)
-    return render_template('add.html', jsonstr=jsonstr)
+    return render_template('add.html', jsonstr=jsonstr,data=countryFeeDict.items())
 
 
 @main.route("/addexecute", methods=['POST'])
