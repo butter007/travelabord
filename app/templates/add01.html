@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h3 align="center">出国用汇申请（预算）书</h3>
+</div>
+<div align="center">
+    <p><label>代&nbsp;表&nbsp;团（组）名&nbsp;称</label><input style="width: 400px"></p>
+    <p><label>团&nbsp;&nbsp;（组）&nbsp;&nbsp;长&nbsp;姓&nbsp;名&nbsp;</label><input></p>
+    <p><label>出国总人数</label><input><label>人</label><label>单人</label><input><label>人</label></p>
+    <p><label>批准出访天数</label><input><label>出访地区</label><select name="area1"  id="area1"></select><select name="area2" id="area2"></select><select name="area3" id="area3"></select></p>
+    <p><label>外汇种类</label>
+        <select name="cashtype">
+            <option value="0">选择货币</option>
+            <option value="USD">美元</option>
+            <option value="EUR">欧元</option>
+            <option value="JPY">日元</option>
+            <option value="HKD">港币</option>
+            <option value="GBP">英镑</option>
+        </select>
+        <label>预计出境日期</label>
+        <input name="expectdate"   id="datepicker" type="text">
+    </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="../static/laydate/laydate.js"></script>
+<script>
+laydate.render({
+  elem: '#datepicker' //指定元素
+});
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#area1").append("<option value=''></option>")
+        $("#area2").append("<option value=''></option>")
+        $("#area3").append("<option value=''></option>")
+        {% for key,value in data %}
+            $("#area1").append("<option value={{ key }}>{{ value[0] }}</option>")
+        {% endfor %}
+        {% for key,value in data %}
+            $("#area2").append("<option value={{ key }}>{{ value[0] }}</option>")
+        {% endfor %}
+        {% for key,value in data %}
+            $("#area3").append("<option value={{ key }}>{{ value[0] }}</option>")
+        {% endfor %}
+});
+    </script>
+{% endblock %}
