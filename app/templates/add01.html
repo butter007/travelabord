@@ -2,16 +2,23 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Flasky{% endblock %}
-
+{% block head %}
+{{ super() }}
+<style>
+    th{text-align:center}
+</style>
+{% endblock %}
 {% block page_content %}
 <div class="page-header">
     <h3 align="center">出国用汇申请（预算）书</h3>
 </div>
 <div align="center">
-    <p><label>代&nbsp;表&nbsp;团（组）名&nbsp;称</label><input style="width: 400px"></p>
-    <p><label>团&nbsp;&nbsp;（组）&nbsp;&nbsp;长&nbsp;姓&nbsp;名&nbsp;</label><input></p>
-    <p><label>出国总人数</label><input><label>人</label><label>单人</label><input><label>人</label></p>
-    <p><label>批准出访天数</label><input><label>出访地区</label><select name="area1"  id="area1"></select><select name="area2" id="area2"></select><select name="area3" id="area3"></select></p>
+    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px"></p>
+    <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px"><label>人</label><label>（单人</label><input style="width: 100px"><label>人）</label></p>
+    <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input><label>天</label></p>
+    <p><label>出访地区1</label><select name="area1"  id="area1"></select><input><label>天</label></p>
+    <p><label>出访地区2</label><select name="area2"  id="area2"></select><input><label>天</label></p>
+    <p><label>出访地区3</label><select name="area3"  id="area3"></select><input><label>天</label> </p>
     <p><label>外汇种类</label>
         <select name="cashtype">
             <option value="0">选择货币</option>
@@ -25,6 +32,85 @@
         <input name="expectdate"   id="datepicker" type="text">
     </p>
 </div>
+<div align="center">
+    <table border="1">
+        <tr>
+            <th>用&nbsp;汇&nbsp;项&nbsp;目</th>
+            <th>预&nbsp;算&nbsp;数</th>
+            <th>核&nbsp;批&nbsp;数</th>
+            <th>说&nbsp;明</th>
+        </tr>
+        <tr>
+            <th>A机票</th>
+            <td><input name="fee12" style="width:100px;"></td>
+            <td><input name="fee13" style="width:100px;"></td>
+            <td><input name="fee14" style="width:100px;"></td>
+        </tr>
+        <tr>
+            <th>C伙食费</th>
+            <td><input name="fee22"  style="width:100px;" id="fee22"></td>
+            <td><input name="fee23"  style="width:100px;"></td>
+            <td><input name="fee24"  style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>D住宿费</th>
+            <td><input name="fee32"  style="width:100px;" id="fee32"></td>
+            <td><input name="fee33"  style="width:100px;"></td>
+            <td><input name="fee34"  style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>E公杂费</th>
+            <td><input name="fee42"  style="width:100px;" id="fee42"</td>
+            <td><input name="fee43"  style="width:100px;"></td>
+            <td><input name="fee44"  style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>F交通费</th>
+            <td><input name="fee52"  style="width:100px;"></td>
+            <td><input name="fee53"  style="width:100px;"></td>
+            <td><input name="fee54"  style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>G个人另用</th>
+            <td><input name="fee62"  style="width:100px;"></td>
+            <td><input name="fee63"  style="width:100px;"></td>
+            <td><input name="fee64"  style="width:100px;"></td>
+        </tr>
+
+         <tr>
+            <th>I备用金</th>
+            <td><input name="fee72"  style="width:100px;"></td>
+            <td><input name="fee73"  style="width:100px;"></td>
+            <td><input name="fee74"  style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>J摊位费</th>
+            <td><input name="fee82"  style="width:100px;"></td>
+            <td><input name="fee83" style="width:100px;"></td>
+            <td><input name="fee84" style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>其他</th>
+            <td><input name="fee92"  style="width:100px;"></td>
+            <td><input name="fee93"  style="width:100px;"></td>
+            <td><input name="fee94" style="width:100px;"></td>
+        </tr>
+
+        <tr>
+            <th>合计</th>
+            <td><input name="fee102"  style="width:100px;"></td>
+            <td><input name="fee103"  style="width:100px;"></td>
+            <td><input name="fee104"  style="width:100px;"></td>
+        </tr>
+    </table>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -34,6 +120,7 @@
 laydate.render({
   elem: '#datepicker' //指定元素
 });
+
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
