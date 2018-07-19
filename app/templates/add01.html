@@ -21,7 +21,7 @@
     <p><label>出访地区2</label><select name="area2"  id="area2"></select><input name="area2days"><label>天</label></p>
     <p><label>出访地区3</label><select name="area3"  id="area3"></select><input name="area3days"><label>天</label> </p>
     <p><label>外汇种类</label>
-        <select name="cashtype">
+        <select name="cashtype" id="cashtype">
             <option value="0">选择货币</option>
             <option value="美元">美元</option>
             <option value="欧元">欧元</option>
@@ -112,7 +112,7 @@
     </table>
 </div>
 </form>
-<div align="center"><input type="button" value="计算" id="calculate">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回"></div>
+<div align="center"><input type="button" value="计算" id="calculate">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="提交" id="submit">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回"></div>
 {% endblock %}
 
 {% block scripts %}
@@ -139,12 +139,26 @@ laydate.render({
         {% endfor %}
 });
     var fees = {{ jsonstr | safe }}
+
+    $("#peoples").keyup(function(){
+     		 var c=$(this);
+             if(/[^\d]/.test(c.val())){//替换非数字字符
+              var temp_amount=c.val().replace(/[^\d]/g,'');
+              $(this).val(temp_amount);
+             }
+     	});
+
+
     $("#calculate").click(function(){
-        var days =$("#days").val();
         var peoples = $("#peoples").val();
+
+        var days =$("#days").val();
+
         var countryType1 = $("#area1").val()
+
         if(countryType1==''){
             alert('出访地区1未选')
+            return;
         }
         var single = $("#single").val()
         $.each(fees,function (key,val) {
@@ -153,9 +167,24 @@ laydate.render({
                 $("#fee22").val(days*peoples*val[3]);
                 $("#fee32").val(days*(peoples-single)*val[2]+days*single*val[2]*1.3);
                 $("#fee42").val(days*peoples*val[4])
+                $("#cashtype").val(val[1])
             }
         })
+
     });
+        $("#submit").click(
+            function(){
+                var peoplesname = $.trim($("#peoplesname").val())
+                if(peoplesname=='')
+                {
+                    alert("代表团成员未填写！")
+                    $("#peoplesname").val("")
+                    $("#peoplesname").focus();
+                    return;
+                }
+            });
+
+
 
     </script>
 {% endblock %}
