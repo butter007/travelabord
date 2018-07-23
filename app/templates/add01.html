@@ -14,23 +14,37 @@
 </div>
 <form action="{{ url_for('main.addexecute') }}" method="post">
 <div align="center">
-    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname"></p>
+    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname"><font hidden color="red" id="peopleinfo"><span>1</span></font></p>
     <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px" id="peoples" name="peoples"><label>人</label><label>（单人</label><input style="width: 100px" name="single" id="single"><label>人）</label></p>
-    <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input id="days" name="days"><label>天</label></p>
-    <p><label>出访地区1</label><select name="area1"  id="area1"></select><input name="area1days"><label>天</label></p>
-    <p><label>出访地区2</label><select name="area2"  id="area2"></select><input name="area2days"><label>天</label></p>
-    <p><label>出访地区3</label><select name="area3"  id="area3"></select><input name="area3days"><label>天</label> </p>
-    <p><label>外汇种类</label>
-        <select name="cashtype" id="cashtype">
+    <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input id="days" name="days"><label>天&nbsp;&nbsp;</label><label>预计出境日期</label>
+        <input name="expectdate"   id="datepicker" type="text"></p>
+    <p><label>出访地区1</label><select name="area1"  id="area1"></select><input name="area1days"><label>天</label><select name="cashtype" id="cashtype1">
             <option value="0">选择货币</option>
             <option value="美元">美元</option>
             <option value="欧元">欧元</option>
             <option value="日元">日元</option>
             <option value="港币">港币</option>
             <option value="英镑">英镑</option>
-        </select>
-        <label>预计出境日期</label>
-        <input name="expectdate"   id="datepicker" type="text">
+        </select></p>
+    <p><label>出访地区2</label><select name="area2"  id="area2"></select><input name="area2days"><label>天</label><select name="cashtype" id="cashtype2">
+            <option value="0">选择货币</option>
+            <option value="美元">美元</option>
+            <option value="欧元">欧元</option>
+            <option value="日元">日元</option>
+            <option value="港币">港币</option>
+            <option value="英镑">英镑</option>
+        </select></p>
+    <p><label>出访地区3</label><select name="area3"  id="area3"></select><input name="area3days"><label>天</label><select name="cashtype" id="cashtype3">
+            <option value="0">选择货币</option>
+            <option value="美元">美元</option>
+            <option value="欧元">欧元</option>
+            <option value="日元">日元</option>
+            <option value="港币">港币</option>
+            <option value="英镑">英镑</option>
+        </select></p>
+    <p>
+
+
     </p>
 </div>
 <div align="center">
@@ -151,9 +165,7 @@ laydate.render({
 
     $("#calculate").click(function(){
         var peoples = $("#peoples").val();
-
         var days =$("#days").val();
-
         var countryType1 = $("#area1").val()
 
         if(countryType1==''){
@@ -177,14 +189,13 @@ laydate.render({
                 var peoplesname = $.trim($("#peoplesname").val())
                 if(peoplesname=='')
                 {
-                    alert("代表团成员未填写！")
-                    $("#peoplesname").val("")
+                    var peopleinfo = $("#peopleinfo");
+                    peopleinfo.show();
+                    peopleinfo.find('span').text("请输入代表团成员");
+                    $("#peoplesname").val("");
                     $("#peoplesname").focus();
                     return;
                 }
             });
-
-
-
     </script>
 {% endblock %}
