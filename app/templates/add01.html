@@ -14,8 +14,8 @@
 </div>
 <form action="{{ url_for('main.addexecute') }}" method="post">
 <div style="margin-left: 30%" >
-    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname"><font hidden color="red" id="peopleinfo"><span></span></font></p>
-    <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px" id="peoples" name="peoples"><label>人</label><label>（单人</label><input style="width: 100px" name="single" id="single"><label>人）</label></p>
+    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname"> <span id="peoplenameinfo" style="display:none;color:red"></span></p>
+    <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px" id="peoples" name="peoples"><label>人</label><label>（单人</label><input style="width: 100px" name="single" id="single"><label>人）</label><span id="peoplesnuminfo" style="display:none;color:red"></span></p>
     <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input id="days" name="days"><label>天&nbsp;&nbsp;</label><label>预计出境日期</label>
         <input name="expectdate"   id="datepicker" type="text"></p>
     <p><label>出访地区1</label><select name="area1"  id="area1"></select><input name="area1days"><label>天</label><select name="cashtype" id="cashtype1">
@@ -77,7 +77,7 @@
 
         <tr>
             <th>E公杂费</th>
-            <td><input name="fee42"  style="width:100px;" id="fee42"</td>
+            <td><input name="fee42"  style="width:100px" id="fee42"></td>
             <td><input name="fee43"  style="width:100px;"></td>
             <td><input name="fee44"  style="width:100px;"></td>
         </tr>
@@ -151,6 +151,8 @@ laydate.render({
         {% for key,value in data %}
             $("#area3").append("<option value={{ key }}>{{ value[0] }}</option>")
         {% endfor %}
+        blurf("peoplesname","peoplenameinfo")
+        blurf("peoples","peoplesnuminfo")
 });
     var fees = {{ jsonstr | safe }}
 
@@ -162,26 +164,35 @@ laydate.render({
              }
      	});
 
-    $("#peoplesname").blur(function(){
+
+    function blurf(inputid,spanid)
+    {
+        $("#"+inputid).blur(function(){
             var c=$(this)
             if ($.trim(c.val()))
             {
-              if($("#peopleinfo").is(":visible"))
+              if($("#"+spanid).is(":visible"))
               {
-                  $("#peopleinfo").hide();
+                  $("#"+spanid).hide();
               }
             }
      	});
+    }
     $("#calculate").click(function(){
         var peoples = $("#peoples").val();
+        var single = $("#single").val()
         var days =$("#days").val();
-        var countryType1 = $("#area1").val()
+        var leavedate = $("#datepicker").val();
+        var countryType1 = $("#area1").val();
+        if ($.trim(peoples)=='')
+        {
 
+        }
         if(countryType1==''){
             alert('出访地区1未选')
             return;
         }
-        var single = $("#single").val()
+
         $.each(fees,function (key,val) {
             if(key==countryType1)
             {
@@ -195,16 +206,20 @@ laydate.render({
     });
         $("#submit").click(
             function(){
-                var peoplesname = $.trim($("#peoplesname").val())
-                if(peoplesname=='')
-                {
-                    var peopleinfo = $("#peopleinfo");
-                    peopleinfo.show();
-                    peopleinfo.find('span').text("请输入代表团成员");
-                    $("#peoplesname").val("");
-                    $("#peoplesname").focus();
-                    return;
-                }
+                checkvalue("peoplesname","peoplenameinfo","请输入团队成员")
+                checkvalue("peoples","peoplesnuminfo","请输入团队人数")
             });
+
+    function checkvalue (inputid,spanid,textval){
+        var input = $.trim($("#"+inputid).val());
+        if(input=='')
+        {
+                var spanidinfo = $("#"+spanid);
+                spanidinfo.show();
+                spanidinfo.text(textval);
+                $("#"+inputid).focus();
+                return;
+        }
+    }
     </script>
 {% endblock %}
