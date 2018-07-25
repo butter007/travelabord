@@ -17,25 +17,25 @@
     <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname"> <span id="peoplenameinfo" style="display:none;color:red"></span></p>
     <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px" id="peoples" name="peoples"><label>人</label><label>（单人</label><input style="width: 100px" name="single" id="single"><label>人）</label><span id="peoplesnuminfo" style="display:none;color:red"></span></p>
     <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input id="days" name="days"><label>天&nbsp;&nbsp;</label><label>预计出境日期</label>
-        <input name="expectdate"   id="datepicker" type="text"></p>
-    <p><label>出访地区1</label><select name="area1"  id="area1"></select><input name="area1days"><label>天</label><select name="cashtype" id="cashtype1">
-            <option value="0">选择货币</option>
+        <input name="expectdate"   id="datepicker" type="text"><span id="daysinfo" style="display:none;color:red"></span></p>
+    <p><label>出访地区1</label><select name="area1"  id="area1"></select><input name="area1days" id="area1days"><label>天</label><select name="cashtype" id="cashtype1">
+            <option value="">选择货币</option>
+            <option value="美元">美元</option>
+            <option value="欧元">欧元</option>
+            <option value="日元">日元</option>
+            <option value="港币">港币</option>
+            <option value="英镑">英镑</option>
+        </select><span id="area1info" style="display:none;color:red"></p>
+    <p><label>出访地区2</label><select name="area2"  id="area2"></select><input name="area2days" id="area2days"><label>天</label><select name="cashtype" id="cashtype2">
+            <option value="">选择货币</option>
             <option value="美元">美元</option>
             <option value="欧元">欧元</option>
             <option value="日元">日元</option>
             <option value="港币">港币</option>
             <option value="英镑">英镑</option>
         </select></p>
-    <p><label>出访地区2</label><select name="area2"  id="area2"></select><input name="area2days"><label>天</label><select name="cashtype" id="cashtype2">
-            <option value="0">选择货币</option>
-            <option value="美元">美元</option>
-            <option value="欧元">欧元</option>
-            <option value="日元">日元</option>
-            <option value="港币">港币</option>
-            <option value="英镑">英镑</option>
-        </select></p>
-    <p><label>出访地区3</label><select name="area3"  id="area3"></select><input name="area3days"><label>天</label><select name="cashtype" id="cashtype3">
-            <option value="0">选择货币</option>
+    <p><label>出访地区3</label><select name="area3"  id="area3"></select><input name="area3days" id="area3days"><label>天</label><select name="cashtype" id="cashtype3">
+            <option value="">选择货币</option>
             <option value="美元">美元</option>
             <option value="欧元">欧元</option>
             <option value="日元">日元</option>
@@ -57,71 +57,71 @@
         </tr>
         <tr>
             <th>A机票</th>
-            <td><input name="fee12" style="width:100px;"></td>
-            <td><input name="fee13" style="width:100px;"></td>
-            <td><input name="fee14" style="width:100px;"></td>
+            <td><input name="fee12" style="width:100px;" id="fee12"></td>
+            <td><input name="fee13" style="width:100px;" id="fee13"></td>
+            <td><input name="fee14" style="width:100px;" id="fee14"></td>
         </tr>
         <tr>
             <th>C伙食费</th>
             <td><input name="fee22"  style="width:100px;" id="fee22"></td>
-            <td><input name="fee23"  style="width:100px;"></td>
-            <td><input name="fee24"  style="width:100px;"></td>
+            <td><input name="fee23"  style="width:100px;" id="fee23"></td>
+            <td><input name="fee24"  style="width:100px;" id="fee24"></td>
         </tr>
 
         <tr>
             <th>D住宿费</th>
             <td><input name="fee32"  style="width:100px;" id="fee32"></td>
-            <td><input name="fee33"  style="width:100px;"></td>
-            <td><input name="fee34"  style="width:100px;"></td>
+            <td><input name="fee33"  style="width:100px;" id="fee33"></td>
+            <td><input name="fee34"  style="width:100px;" id="fee34"></td>
         </tr>
 
         <tr>
             <th>E公杂费</th>
             <td><input name="fee42"  style="width:100px" id="fee42"></td>
-            <td><input name="fee43"  style="width:100px;"></td>
-            <td><input name="fee44"  style="width:100px;"></td>
+            <td><input name="fee43"  style="width:100px;" id="fee43"></td>
+            <td><input name="fee44"  style="width:100px;" id="fee44"></td>
         </tr>
 
         <tr>
             <th>F交通费</th>
-            <td><input name="fee52"  style="width:100px;"></td>
-            <td><input name="fee53"  style="width:100px;"></td>
-            <td><input name="fee54"  style="width:100px;"></td>
+            <td><input name="fee52"  style="width:100px;" id="fee52"></td>
+            <td><input name="fee53"  style="width:100px;" id="fee53"></td>
+            <td><input name="fee54"  style="width:100px;" id="fee54"></td>
         </tr>
 
         <tr>
             <th>G个人另用</th>
-            <td><input name="fee62"  style="width:100px;"></td>
-            <td><input name="fee63"  style="width:100px;"></td>
-            <td><input name="fee64"  style="width:100px;"></td>
+            <td><input name="fee62"  style="width:100px;" id="fee62"></td>
+            <td><input name="fee63"  style="width:100px;" id="fee63"></td>
+            <td><input name="fee64"  style="width:100px;" id="fee64"></td>
         </tr>
 
          <tr>
             <th>I备用金</th>
-            <td><input name="fee72"  style="width:100px;"></td>
-            <td><input name="fee73"  style="width:100px;"></td>
-            <td><input name="fee74"  style="width:100px;"></td>
+            <td><input name="fee72"  style="width:100px;" id="fee72"></td>
+            <td><input name="fee73"  style="width:100px;" id="fee73"></td>
+            <td><input name="fee74"  style="width:100px;" id="fee74"></td>
         </tr>
 
         <tr>
             <th>J摊位费</th>
-            <td><input name="fee82"  style="width:100px;"></td>
-            <td><input name="fee83" style="width:100px;"></td>
-            <td><input name="fee84" style="width:100px;"></td>
+            <td><input name="fee82"  style="width:100px;" id="fee82"></td>
+            <td><input name="fee83" style="width:100px;" id="fee83"></td>
+            <td><input name="fee84" style="width:100px;" id="fee84"></td>
         </tr>
 
         <tr>
             <th>其他</th>
-            <td><input name="fee92"  style="width:100px;"></td>
-            <td><input name="fee93"  style="width:100px;"></td>
-            <td><input name="fee94" style="width:100px;"></td>
+            <td><input name="fee92"  style="width:100px;" id="fee92"></td>
+            <td><input name="fee93"  style="width:100px;" id="fee93"></td>
+            <td><input name="fee94"  style="width:100px;" id="fee94"></td>
         </tr>
 
         <tr>
             <th>合计</th>
-            <td><input name="fee102"  style="width:100px;"></td>
-            <td><input name="fee103"  style="width:100px;"></td>
-            <td><input name="fee104"  style="width:100px;"></td>
+            <td><input name="fee102"  style="width:100px;" id="fee102"></td>
+            <td><input name="fee103"  style="width:100px;" id="fee103"></td>
+            <td><input name="fee104"  style="width:100px;" id="fee104"></td>
         </tr>
     </table>
 </div>
@@ -153,22 +153,42 @@ laydate.render({
         {% endfor %}
         blurf("peoplesname","peoplenameinfo")
         blurf("peoples","peoplesnuminfo")
+        blurf("days","daysinfo")
+        blurf("datepicker","daysinfo")
+        blurf("area1","area1info")
+        blurf("area1days","area1info")
+        blurf("cashtype1","area1info")
+        keyup("peoples")
+        keyup("days")
+        keyup("single")
+        keyup("area1days")
+        for(var i=1;i<11;i++)
+        {
+            keyup("fee"+i+"2");
+            keyup("fee"+i+"3");
+        }
 });
     var fees = {{ jsonstr | safe }}
 
-    $("#peoples").keyup(function(){
-     		 var c=$(this);
-             if(/[^\d]/.test(c.val())){//替换非数字字符
-              var temp_amount=c.val().replace(/[^\d]/g,'');
-              $(this).val(temp_amount);
+
+
+    function keyup(inputid)
+    {
+            $("#"+inputid).keyup(function()
+            {
+                 var c=$(this);
+                 if(/[^\d]/.test(c.val())){//替换非数字字符
+                  var temp_amount=c.val().replace(/[^\d.]/g,'');
+                  $(this).val(temp_amount);
              }
-     	});
-
-
+     	    });
+    }
     function blurf(inputid,spanid)
     {
         $("#"+inputid).blur(function(){
-            var c=$(this)
+            var c=$(this);
+            var content =  $.trim(c.val);
+            
             if ($.trim(c.val()))
             {
               if($("#"+spanid).is(":visible"))
@@ -177,6 +197,7 @@ laydate.render({
               }
             }
      	});
+
     }
     $("#calculate").click(function(){
         var peoples = $("#peoples").val();
@@ -199,16 +220,29 @@ laydate.render({
                 $("#fee22").val(days*peoples*val[3]);
                 $("#fee32").val(days*(peoples-single)*val[2]+days*single*val[2]*1.3);
                 $("#fee42").val(days*peoples*val[4])
-                $("#cashtype").val(val[1])
+                $("#cashtype1").val(val[1])
             }
         })
+        var sumbudget = 0
+        var sumverify = 0
+        for(var i = 1;i < 10;i++)
+        {
+            sumbudget+=Number($("#"+"fee"+i+"2").val());
+            sumverify+=Number($("#"+"fee"+i+"3").val());
 
+        }
+        $("#fee102").val(sumbudget)
     });
         $("#submit").click(
             function(){
-                checkvalue("peoplesname","peoplenameinfo","请输入团队成员")
-                checkvalue("peoples","peoplesnuminfo","请输入团队人数")
-            });
+                checkvalue("peoplesname","peoplenameinfo","请输入团队成员！")
+                checkvalue("peoples","peoplesnuminfo","请输入团队人数！")
+                checkvalue("days","daysinfo","请输入批准天数！")
+                checkvalue("datepicker","daysinfo","请选择出境日期！")
+                checkvalue("area1","area1info","请选择出访地区1！")
+                checkvalue("area1days","area1info","请输入出访地区1的天数！")
+                checkvalue("cashtype1","area1info","请选择出访地区1的货币！")
+        });
 
     function checkvalue (inputid,spanid,textval){
         var input = $.trim($("#"+inputid).val());
