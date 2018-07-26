@@ -24,12 +24,12 @@ def add():
         feeList.append(item.extrafee)
         countryFeeDict[item.id] = feeList
     jsonstr = json.dumps(countryFeeDict)
-    print (jsonstr)
     return render_template('add01.html', jsonstr=jsonstr,data=countryFeeDict.items())
 
 
-@main.route("/addexecute", methods=['POST'])
+@main.route("/addexecute", methods=['GET','POST'])
 def addexecute():
-    print(request.form['province'])
-    print(request.form['approve'])
-    return render_template('index.html')
+    print(request.form['peoplesname'])
+    print(request.form['peoples'])
+    print(request.form['days'])
+    return redirect(url_for('main.index'))
