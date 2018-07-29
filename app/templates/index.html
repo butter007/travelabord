@@ -1,9 +1,43 @@
 {% extends "base.html" %}
 
 {% block title %}Flasky{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+
+{% endblock %}
+
 
 {% block page_content %}
-<div class="page-header">
-    <h1>Hello, Stranger!</h1>
-</div>
+<table id="table" class="table"></table>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script >
+$('#table').bootstrapTable({
+  url: "{{ url_for('main.jsonlist') }}",
+  columns: [{
+    field: 'peoplesname',
+    title: '代表团成员'
+  }, {
+    field: 'peoples',
+    title: '出国总人数'
+  }, {
+    field: 'days',
+    title: '批准出访天数'
+  }, {
+    field: 'expectdate',
+    title: '预计出境日期'
+  }, {
+    field: 'fee102',
+    title: '预借外币总金额'
+  }, {
+    field: '',
+    title: '编辑操作'
+  },]
+});
+</script>
 {% endblock %}
