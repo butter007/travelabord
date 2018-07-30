@@ -76,6 +76,7 @@ def addexecute():
                       teaminfo=teaminfo)
     db.session.add(teaminfo)
     db.session.add(itemfee)
+    db.session.commit()
     return redirect(url_for('main.index'))
 
 @main.route("/jsonlist", methods=['GET', 'POST'])
