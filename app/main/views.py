@@ -43,39 +43,51 @@ def addexecute():
                         area3=request.form.get('area3', ''),
                         area3days=request.form.get('area3days', 0),
                         cashtype3=request.form.get('cashtype3', ''))
-    print(request.form.get('area2days', 0))
-    print(1)
-    itemfee = Itemfee(fee12=float(request.form.get('fee12', 0)),
-                      fee13=float(request.form.get('fee13', 0)),
+    itemfee = Itemfee(fee12=request.form.get('fee12', 0),
+                      fee13=request.form.get('fee13', 0),
                       fee14=request.form.get('fee14', ''),
-                      fee22=float(request.form.get('fee22', 0)),
-                      fee23=float(request.form.get('fee23', 0)),
+                      fee22=request.form.get('fee22', 0),
+                      fee23=request.form.get('fee23', 0),
                       fee24=request.form.get('fee24', ''),
-                      fee32=float(request.form.get('fee32', 0)),
-                      fee33=float(request.form.get('fee33', 0)),
+                      fee32=request.form.get('fee32', 0),
+                      fee33=request.form.get('fee33', 0),
                       fee34=request.form.get('fee34', ''),
-                      fee42=float(request.form.get('fee42', 0)),
-                      fee43=float(request.form.get('fee43', 0)),
+                      fee42=request.form.get('fee42', 0),
+                      fee43=request.form.get('fee43', 0),
                       fee44=request.form.get('fee44', ''),
-                      fee52=float(request.form.get('fee52', 0)),
-                      fee53=float(request.form.get('fee53', 0)),
+                      fee52=request.form.get('fee52', 0),
+                      fee53=request.form.get('fee53', 0),
                       fee54=request.form.get('fee54', ''),
-                      fee62=float(request.form.get('fee62', 0)),
-                      fee63=float(request.form.get('fee63', 0)),
+                      fee62=request.form.get('fee62', 0),
+                      fee63=request.form.get('fee63', 0),
                       fee64=request.form.get('fee64', ''),
-                      fee72=float(request.form.get('fee72', 0)),
-                      fee73=float(request.form.get('fee73', 0)),
+                      fee72=request.form.get('fee72', 0),
+                      fee73=request.form.get('fee73', 0),
                       fee74=request.form.get('fee74', ''),
-                      fee82=float(request.form.get('fee82', 0)),
-                      fee83=float(request.form.get('fee83', 0)),
+                      fee82=request.form.get('fee82', 0),
+                      fee83=request.form.get('fee83', 0),
                       fee84=request.form.get('fee84', ''),
-                      fee92=float(request.form.get('fee92', 0)),
-                      fee93=float(request.form.get('fee93', 0)),
+                      fee92=request.form.get('fee92', 0),
+                      fee93=request.form.get('fee93', 0),
                       fee94=request.form.get('fee94', ''),
-                      fee102=float(request.form.get('fee102', 0)),
-                      fee103=float(request.form.get('fee102', 0)),
+                      fee102=request.form.get('fee102', 0),
+                      fee103=request.form.get('fee102', 0),
                       fee104=request.form.get('fee103', ''),
                       teaminfo=teaminfo)
     db.session.add(teaminfo)
     db.session.add(itemfee)
     return redirect(url_for('main.index'))
+
+@main.route("/jsonlist", methods=['GET', 'POST'])
+def jsonlist():
+    jsonlist = []
+    teaminfolist = Teaminfo.query.all()
+    for item in teaminfolist:
+        itemdict = item.__dict__
+        itemdict.pop('_sa_instance_state', None)
+        itemfee = itemdict.get('itemfee')
+        itemdict.pop('itemfee', None)
+        itemdict.update(itemfee.__dict__)
+        itemdict.pop('_sa_instance_state', None)
+        jsonlist.append(itemdict)
+    return json.dumps(jsonlist)

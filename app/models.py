@@ -3,10 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 
 
-
-
-
-
 class StandardFee(db.Model):
     __tablename__ = 'standardfees'
     id = db.Column(db.Integer, primary_key=True)
@@ -63,31 +59,33 @@ class StandardFee(db.Model):
                             standardfeedanmark, standardfeesverige, standardfeenoreg,
                             standardfeeswitzerland, standardfeeicelandd, standardfeeengland,
                             standardfeerussia, standardfeeusa, standardfeecanada,
-                            standardfeemaxcio,standardfeeaustria, standardfeenewzealand,
-                            standardfeebrasil,standardfeechile, standardfeeargentina
+                            standardfeemaxcio, standardfeeaustria, standardfeenewzealand,
+                            standardfeebrasil, standardfeechile, standardfeeargentina
                             ])
         db.session.commit()
+
 
 class Teaminfo(db.Model):
     __tablename__ = 'teaminfos'
     id = db.Column(db.Integer, primary_key=True)
     peoplesname = db.Column(db.String(256))
-    peoples = db.Column(db.Integer,nullable=False)
-    single = db.Column(db.Integer,nullable=True)
-    days = db.Column(db.Integer,nullable=False)
-    expectdate = db.Column(db.String(16),nullable=False)
-    area1 = db.Column(db.String(64),nullable=False)
-    area1days = db.Column(db.Integer,nullable=False)
-    cashtype1 = db.Column(db.String(36),nullable=False)
+    peoples = db.Column(db.String(8), nullable=False)
+    single = db.Column(db.String(8), nullable=True)
+    days = db.Column(db.String(8), nullable=False)
+    expectdate = db.Column(db.String(16), nullable=False)
+    area1 = db.Column(db.String(64), nullable=False)
+    area1days = db.Column(db.String(8), nullable=False)
+    cashtype1 = db.Column(db.String(36), nullable=False)
     area2 = db.Column(db.String(64), nullable=True)
-    area2days = db.Column(db.Integer, nullable=True)
+    area2days = db.Column(db.String(8), nullable=True)
     cashtype2 = db.Column(db.String(36), nullable=True)
     area3 = db.Column(db.String(64), nullable=True)
-    area3days = db.Column(db.Integer, nullable=True)
+    area3days = db.Column(db.String(8), nullable=True)
     cashtype3 = db.Column(db.String(36), nullable=True)
-    itemfee = db.relationship("Itemfee",backref="teaminfos")
-    def __init__(self,peoplesname,peoples,single,days,expectdate,area1,area1days,
-                 cashtype1,area2,area2days,cashtype2,area3,area3days,cashtype3):
+    itemfee = db.relationship("Itemfee", backref="teaminfo", uselist=False, lazy="joined")
+
+    def __init__(self, peoplesname, peoples, single, days, expectdate, area1, area1days,
+                 cashtype1, area2, area2days, cashtype2, area3, area3days, cashtype3):
         self.peoplesname = peoplesname
         self.peoples = peoples
         self.single = single
@@ -103,37 +101,38 @@ class Teaminfo(db.Model):
         self.area3days = area3days
         self.cashtype3 = cashtype3
 
+
 class Itemfee(db.Model):
     __tablename__ = 'itemfees'
     id = db.Column(db.Integer, primary_key=True)
-    fee12 = db.Column(db.Float,nullable=True)
-    fee13 = db.Column(db.Float,nullable=True)
-    fee14 = db.Column(db.Float,nullable=True)
-    fee22 = db.Column(db.Float,nullable=True)
-    fee23 = db.Column(db.Float,nullable=True)
-    fee24 = db.Column(db.Float,nullable=True)
-    fee32= db.Column(db.Float,nullable=True)
-    fee33 = db.Column(db.Float,nullable=True)
-    fee34 = db.Column(db.Float,nullable=True)
-    fee42 = db.Column(db.Float,nullable=True)
-    fee43 = db.Column(db.Float,nullable=True)
-    fee44 = db.Column(db.Float,nullable=True)
-    fee52 = db.Column(db.Float,nullable=True)
-    fee53 = db.Column(db.Float,nullable=True)
-    fee54 = db.Column(db.Float,nullable=True)
-    fee62 = db.Column(db.Float,nullable=True)
-    fee63 = db.Column(db.Float,nullable=True)
-    fee64 = db.Column(db.Float,nullable=True)
-    fee72 = db.Column(db.Float,nullable=True)
-    fee73 = db.Column(db.Float,nullable=True)
-    fee74 = db.Column(db.Float,nullable=True)
-    fee82 = db.Column(db.Float,nullable=True)
-    fee83 = db.Column(db.Float,nullable=True)
-    fee84 = db.Column(db.Float,nullable=True)
-    fee92 = db.Column(db.Float,nullable=True)
-    fee93 = db.Column(db.Float,nullable=True)
-    fee94 = db.Column(db.Float,nullable=True)
-    fee102 = db.Column(db.Float,nullable=True)
-    fee103 = db.Column(db.Float,nullable=True)
-    fee104 = db.Column(db.Float,nullable=True)
-    Teaminfo_id = db.Column(db.Integer,db.ForeignKey('teaminfos.id'))
+    fee12 = db.Column(db.String(16), nullable=True)
+    fee13 = db.Column(db.String(16), nullable=True)
+    fee14 = db.Column(db.String(256), nullable=True)
+    fee22 = db.Column(db.String(16), nullable=True)
+    fee23 = db.Column(db.String(16), nullable=True)
+    fee24 = db.Column(db.String(256), nullable=True)
+    fee32 = db.Column(db.String(16), nullable=True)
+    fee33 = db.Column(db.String(16), nullable=True)
+    fee34 = db.Column(db.String(256), nullable=True)
+    fee42 = db.Column(db.String(16), nullable=True)
+    fee43 = db.Column(db.String(16), nullable=True)
+    fee44 = db.Column(db.String(256), nullable=True)
+    fee52 = db.Column(db.String(16), nullable=True)
+    fee53 = db.Column(db.String(16), nullable=True)
+    fee54 = db.Column(db.String(256), nullable=True)
+    fee62 = db.Column(db.String(16), nullable=True)
+    fee63 = db.Column(db.String(16), nullable=True)
+    fee64 = db.Column(db.String(256), nullable=True)
+    fee72 = db.Column(db.String(16), nullable=True)
+    fee73 = db.Column(db.String(16), nullable=True)
+    fee74 = db.Column(db.String(256), nullable=True)
+    fee82 = db.Column(db.String(16), nullable=True)
+    fee83 = db.Column(db.String(16), nullable=True)
+    fee84 = db.Column(db.String(256), nullable=True)
+    fee92 = db.Column(db.String(16), nullable=True)
+    fee93 = db.Column(db.String(16), nullable=True)
+    fee94 = db.Column(db.String(256), nullable=True)
+    fee102 = db.Column(db.String(16), nullable=True)
+    fee103 = db.Column(db.String(16), nullable=True)
+    fee104 = db.Column(db.String(256), nullable=True)
+    Teaminfo_id = db.Column(db.Integer, db.ForeignKey('teaminfos.id'))
