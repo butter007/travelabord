@@ -17,12 +17,21 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
 <script >
-$('#table').bootstrapTable({
+
+$(function(){
+    var t = $('#table').bootstrapTable({
   url: "{{ url_for('main.jsonlist') }}",
     striped: true,
     pagination: true,
-    pageList: [10, 25, 50, 100],
     showRefresh: true,
+    paginationPreText:'上一页',
+    paginationNextText:'下一页',
+    search:true,
+    buttonsAlign: "right",
+    sidePagination: "server",
+    pageNumber:1,
+    pageSize:5,
+    pageList:[5,10, 25, 50, 100],
   columns: [{
     field: 'peoplesname',
     title: '代表团成员'
@@ -36,12 +45,22 @@ $('#table').bootstrapTable({
     field: 'expectdate',
     title: '预计出境日期'
   }, {
+    field: 'area1',
+    title: '出境地区国家'
+  }, {
     field: 'fee102',
     title: '预借外币总金额'
-  }, {
+  },{
     field: '',
     title: '编辑操作'
   },]
+});
+
+
+     t.on('load-success.bs.table', function (data) {//table加载成功后的监听函数
+        console.log("load success");
+        $(".pull-right").css("display", "block");
+    });
 });
 </script>
 {% endblock %}

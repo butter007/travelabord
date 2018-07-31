@@ -79,10 +79,14 @@ def addexecute():
     db.session.commit()
     return redirect(url_for('main.index'))
 
+
 @main.route("/jsonlist", methods=['GET', 'POST'])
 def jsonlist():
+    # offset=0&limit=5
     jsonlist = []
-    teaminfolist = Teaminfo.query.all()
+    limit = request.args.get('limit')
+    offset = request.args.get('offset')
+    teaminfolist = Teaminfo.query.limit(limit).offset(offset)
     for item in teaminfolist:
         itemdict = item.__dict__
         itemdict.pop('_sa_instance_state', None)
@@ -91,4 +95,6 @@ def jsonlist():
         itemdict.update(itemfee.__dict__)
         itemdict.pop('_sa_instance_state', None)
         jsonlist.append(itemdict)
-    return json.dumps(jsonlist)
+    print(len(jsonlist))
+
+    return json.dumps({'page': 1, 'rows': jsonlist,"total": 6})
