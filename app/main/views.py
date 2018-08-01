@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, current_app, request
 import json
-from ..models import Teaminfo, Itemfee
+from ..models import Teaminfo, Itemfee,StandardFee
 from .. import db
 from ..models import StandardFee
 from . import main
@@ -86,15 +86,21 @@ def jsonlist():
     jsonlist = []
     limit = request.args.get('limit')
     offset = request.args.get('offset')
+    totals = Teaminfo.query.count()
     teaminfolist = Teaminfo.query.limit(limit).offset(offset)
+    standardFeelist = StandardFee.query.all()
+    stdcountry = {}
+    for item in standardFeelist:
+        stdcountry[str(item.id)] = item.country
+    print (stdcountry)
     for item in teaminfolist:
         itemdict = item.__dict__
+        itemdict['area1'] = stdcountry.get(itemdict['area1'],'')
         itemdict.pop('_sa_instance_state', None)
         itemfee = itemdict.get('itemfee')
         itemdict.pop('itemfee', None)
         itemdict.update(itemfee.__dict__)
         itemdict.pop('_sa_instance_state', None)
         jsonlist.append(itemdict)
-    print(len(jsonlist))
 
-    return json.dumps({'page': 1, 'rows': jsonlist,"total": 6})
+    return json.dumps({'rows': jsonlist,"total": totals})
