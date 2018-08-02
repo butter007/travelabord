@@ -1,9 +1,10 @@
 from flask import render_template, session, redirect, url_for, current_app, request
 import json
-from ..models import Teaminfo, Itemfee,StandardFee
+from ..models import Teaminfo, Itemfee, StandardFee
 from .. import db
 from ..models import StandardFee
 from . import main
+import time
 
 
 @main.route("/", methods=['GET', 'POST'])
@@ -42,7 +43,8 @@ def addexecute():
                         cashtype2=request.form.get('cashtype2', ''),
                         area3=request.form.get('area3', ''),
                         area3days=request.form.get('area3days', 0),
-                        cashtype3=request.form.get('cashtype3', ''))
+                        cashtype3=request.form.get('cashtype3', ''),
+                        applicationdate=time.strftime('%Y-%m-%d', time.localtime()))
     itemfee = Itemfee(fee12=request.form.get('fee12', 0),
                       fee13=request.form.get('fee13', 0),
                       fee14=request.form.get('fee14', ''),
@@ -87,20 +89,27 @@ def jsonlist():
     limit = request.args.get('limit')
     offset = request.args.get('offset')
     totals = Teaminfo.query.count()
-    teaminfolist = Teaminfo.query.limit(limit).offset(offset)
+    teaminfolist = Teaminfo.query.filter(Teaminfo.deleteflag==0).limit(limit).offset(offset)
     standardFeelist = StandardFee.query.all()
     stdcountry = {}
     for item in standardFeelist:
         stdcountry[str(item.id)] = item.country
-    print (stdcountry)
     for item in teaminfolist:
         itemdict = item.__dict__
-        itemdict['area1'] = stdcountry.get(itemdict['area1'],'')
+        itemdict['area1'] = stdcountry.get(itemdict['area1'], '')
         itemdict.pop('_sa_instance_state', None)
         itemfee = itemdict.get('itemfee')
         itemdict.pop('itemfee', None)
         itemdict.update(itemfee.__dict__)
         itemdict.pop('_sa_instance_state', None)
+#        itemdict['operation'] = "<a href='#'>修改</a>&nbsp;&nbsp;<a href='#'>核销</a>&nbsp;&nbsp;<a href='#'>删除</a>"
         jsonlist.append(itemdict)
+    return json.dumps({'rows': jsonlist, "total": totals})
 
-    return json.dumps({'rows': jsonlist,"total": totals})
+@main.route("/delete", methods=['GET', 'POST'])
+def delete():
+    id = request.args.get('id')
+    teaminfo = Teaminfo.query.get(id)
+    teaminfo.deleteflag = 1
+    db.session.add(teaminfo)
+    return json.dumps("succsss")

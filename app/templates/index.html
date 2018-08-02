@@ -41,7 +41,10 @@ $(function(){
   }, {
     field: 'days',
     title: '批准出访天数'
-  }, {
+  },{
+    field: 'applicationdate',
+    title: '申请时间'
+  },{
     field: 'expectdate',
     title: '预计出境日期'
   }, {
@@ -51,8 +54,22 @@ $(function(){
     field: 'fee102',
     title: '预借外币总金额'
   },{
-    field: '',
-    title: '编辑操作'
+    field: 'id',
+    title: '编辑操作',
+      align : 'center',
+      formatter : function(value, row, index) {
+													var c = '<a class="green-color" href="#"  onclick="info(\''
+														+ row.id
+														+ '\')">查看</a> ';
+													var e = '<a class="green-color" href="#"  onclick="input(\''
+															+ row.id
+															+ '\')">编辑</a> ';
+													var d = '<a class="red-color" href="#"  onclick="del(\''
+															+ row.id
+															+ '\')">删除</a> ';
+													return c + e + d ;
+												}
+
   },]
 });
 
@@ -62,5 +79,22 @@ $(function(){
         $(".pull-right").css("display", "block");
     });
 });
+
+function del(id) {
+
+			if(confirm("确定删除?"))
+            {
+                $.ajax({
+					type : "POST",
+					url : "{{ url_for('main.delete')}}?id=" + id ,
+					success : function(data) {
+						alert("删除产品成功!")
+                        alert(data)
+						window.location.href = "{{ url_for('main.index') }}";
+					}
+				});
+            }
+}
+
 </script>
 {% endblock %}

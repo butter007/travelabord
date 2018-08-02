@@ -82,24 +82,12 @@ class Teaminfo(db.Model):
     area3 = db.Column(db.String(64), nullable=True)
     area3days = db.Column(db.String(8), nullable=True)
     cashtype3 = db.Column(db.String(36), nullable=True)
+    applicationdate = db.Column(db.String(16), nullable=True)
+    deleteflag = db.Column(db.Integer, default=0)
+    certiflag = db.Column(db.Integer,nullable=True)
     itemfee = db.relationship("Itemfee", backref="teaminfo", uselist=False, lazy="joined")
 
-    def __init__(self, peoplesname, peoples, single, days, expectdate, area1, area1days,
-                 cashtype1, area2, area2days, cashtype2, area3, area3days, cashtype3):
-        self.peoplesname = peoplesname
-        self.peoples = peoples
-        self.single = single
-        self.days = days
-        self.expectdate = expectdate
-        self.area1 = area1
-        self.area1days = area1days
-        self.cashtype1 = cashtype1
-        self.area2 = area2
-        self.area2days = area2days
-        self.cashtype2 = cashtype2
-        self.area3 = area3
-        self.area3days = area3days
-        self.cashtype3 = cashtype3
+
 
 
 class Itemfee(db.Model):
