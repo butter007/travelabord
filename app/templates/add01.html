@@ -14,11 +14,11 @@
 </div>
 <form id="form" enctype="multipart/form-data" action="{{ url_for('main.addexecute') }}" method="post">
 <div style="margin-left: 30%" >
-    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname"> <span id="peoplenameinfo" style="display:none;color:red"></span></p>
-    <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px" id="peoples" name="peoples"><label>人</label><label>（单人</label><input style="width: 100px" name="single" id="single"><label>人）</label><span id="peoplesnuminfo" style="display:none;color:red"></span></p>
-    <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input id="days" name="days"><label>天&nbsp;&nbsp;</label><label>预计出境日期</label>
-        <input name="expectdate"   id="datepicker" type="text"><span id="daysinfo" style="display:none;color:red"></span></p>
-    <p><label>出访地区1</label><select name="area1"  id="area1"></select><input name="area1days" id="area1days"><label>天</label><select name="cashtype1" id="cashtype1">
+    <p><label>代&nbsp;表&nbsp;团&nbsp;成&nbsp;员&nbsp;</label><input style="width: 300px" name="peoplesname" id="peoplesname" value="{% if teaminfo %}{{ teaminfo.peoplesname }}{% endif %}"> <span id="peoplenameinfo" style="display:none;color:red"></span></p>
+    <p><label>出&nbsp;国&nbsp;总&nbsp;人&nbsp;数&nbsp;</label><input style="width: 100px" id="peoples" name="peoples" value="{% if teaminfo %}{{ teaminfo.peoples }}{% endif %}"><label>人</label><label>（单人</label><input style="width: 100px" name="single" id="single" value="{% if teaminfo %}{{ teaminfo.single }}{% endif %}"><label>人）</label><span id="peoplesnuminfo" style="display:none;color:red"></span></p>
+    <p><label>批&nbsp;准&nbsp;出&nbsp;访&nbsp;天&nbsp;数&nbsp;</label><input id="days" name="days" value="{% if teaminfo %}{{ teaminfo.days }}{% endif %}"><label>天&nbsp;&nbsp;</label><label>预计出境日期</label>
+        <input name="expectdate"   id="datepicker" type="text" value="{% if teaminfo %}{{ teaminfo.expectdate }}{% endif %}"><span id="daysinfo" style="display:none;color:red"></span></p>
+    <p><label>出访地区1</label><select name="area1"  id="area1" ></select><input name="area1days" id="area1days" value="{% if teaminfo %}{{ teaminfo.area1days }}{% endif %}"><label>天</label><select name="cashtype1" id="cashtype1">
             <option value="">选择货币</option>
             <option value="美元">美元</option>
             <option value="欧元">欧元</option>
@@ -57,71 +57,71 @@
         </tr>
         <tr>
             <th>A机票</th>
-            <td><input name="fee12" style="width:100px;" id="fee12"></td>
-            <td><input name="fee13" style="width:100px;" id="fee13"></td>
-            <td><input name="fee14" style="width:100px;" id="fee14"></td>
+            <td><input name="fee12" style="width:100px;" id="fee12" value="{% if teaminfo %}{{ teaminfo.itemfee.fee12 }}{% endif %}"></td>
+            <td><input name="fee13" style="width:100px;" id="fee13" value="{% if teaminfo %}{{ teaminfo.itemfee.fee13 }}{% endif %}"></td>
+            <td><input name="fee14" style="width:100px;" id="fee14" value="{% if teaminfo %}{{ teaminfo.itemfee.fee14 }}{% endif %}"></td>
         </tr>
         <tr>
             <th>C伙食费</th>
-            <td><input name="fee22"  style="width:100px;" id="fee22"></td>
-            <td><input name="fee23"  style="width:100px;" id="fee23"></td>
-            <td><input name="fee24"  style="width:100px;" id="fee24"></td>
+            <td><input name="fee22"  style="width:100px;" id="fee22" value="{% if teaminfo %}{{ teaminfo.itemfee.fee22 }}{% endif %}"></td>
+            <td><input name="fee23"  style="width:100px;" id="fee23" value="{% if teaminfo %}{{ teaminfo.itemfee.fee23 }}{% endif %}"></td>
+            <td><input name="fee24"  style="width:100px;" id="fee24" value="{% if teaminfo %}{{ teaminfo.itemfee.fee24 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>D住宿费</th>
-            <td><input name="fee32"  style="width:100px;" id="fee32"></td>
-            <td><input name="fee33"  style="width:100px;" id="fee33"></td>
-            <td><input name="fee34"  style="width:100px;" id="fee34"></td>
+            <td><input name="fee32"  style="width:100px;" id="fee32" value="{% if teaminfo %}{{ teaminfo.itemfee.fee32 }}{% endif %}"></td>
+            <td><input name="fee33"  style="width:100px;" id="fee33" value="{% if teaminfo %}{{ teaminfo.itemfee.fee33 }}{% endif %}"></td>
+            <td><input name="fee34"  style="width:100px;" id="fee34" value="{% if teaminfo %}{{ teaminfo.itemfee.fee34 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>E公杂费</th>
-            <td><input name="fee42"  style="width:100px" id="fee42"></td>
-            <td><input name="fee43"  style="width:100px;" id="fee43"></td>
-            <td><input name="fee44"  style="width:100px;" id="fee44"></td>
+            <td><input name="fee42"  style="width:100px" id="fee42" value="{% if teaminfo %}{{ teaminfo.itemfee.fee42 }}{% endif %}"f></td>
+            <td><input name="fee43"  style="width:100px;" id="fee43" value="{% if teaminfo %}{{ teaminfo.itemfee.fee43 }}{% endif %}"></td>
+            <td><input name="fee44"  style="width:100px;" id="fee44" value="{% if teaminfo %}{{ teaminfo.itemfee.fee44 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>F交通费</th>
-            <td><input name="fee52"  style="width:100px;" id="fee52"></td>
-            <td><input name="fee53"  style="width:100px;" id="fee53"></td>
-            <td><input name="fee54"  style="width:100px;" id="fee54"></td>
+            <td><input name="fee52"  style="width:100px;" id="fee52" value="{% if teaminfo %}{{ teaminfo.itemfee.fee52 }}{% endif %}"></td>
+            <td><input name="fee53"  style="width:100px;" id="fee53" value="{% if teaminfo %}{{ teaminfo.itemfee.fee53 }}{% endif %}"></td>
+            <td><input name="fee54"  style="width:100px;" id="fee54" value="{% if teaminfo %}{{ teaminfo.itemfee.fee54 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>G个人另用</th>
-            <td><input name="fee62"  style="width:100px;" id="fee62"></td>
-            <td><input name="fee63"  style="width:100px;" id="fee63"></td>
-            <td><input name="fee64"  style="width:100px;" id="fee64"></td>
+            <td><input name="fee62"  style="width:100px;" id="fee62" value="{% if teaminfo %}{{ teaminfo.itemfee.fee62 }}{% endif %}"></td>
+            <td><input name="fee63"  style="width:100px;" id="fee63" value="{% if teaminfo %}{{ teaminfo.itemfee.fee63 }}{% endif %}"></td>
+            <td><input name="fee64"  style="width:100px;" id="fee64" value="{% if teaminfo %}{{ teaminfo.itemfee.fee64 }}{% endif %}"></td>
         </tr>
 
          <tr>
             <th>I备用金</th>
-            <td><input name="fee72"  style="width:100px;" id="fee72"></td>
-            <td><input name="fee73"  style="width:100px;" id="fee73"></td>
-            <td><input name="fee74"  style="width:100px;" id="fee74"></td>
+            <td><input name="fee72"  style="width:100px;" id="fee72" value="{% if teaminfo %}{{ teaminfo.itemfee.fee72 }}{% endif %}"></td>
+            <td><input name="fee73"  style="width:100px;" id="fee73" value="{% if teaminfo %}{{ teaminfo.itemfee.fee73 }}{% endif %}"></td>
+            <td><input name="fee74"  style="width:100px;" id="fee74" value="{% if teaminfo %}{{ teaminfo.itemfee.fee74 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>J摊位费</th>
-            <td><input name="fee82"  style="width:100px;" id="fee82"></td>
-            <td><input name="fee83" style="width:100px;" id="fee83"></td>
-            <td><input name="fee84" style="width:100px;" id="fee84"></td>
+            <td><input name="fee82"  style="width:100px;" id="fee82" value="{% if teaminfo %}{{ teaminfo.itemfee.fee82 }}{% endif %}"></td>
+            <td><input name="fee83"  style="width:100px;" id="fee83" value="{% if teaminfo %}{{ teaminfo.itemfee.fee83 }}{% endif %}"></td>
+            <td><input name="fee84"  style="width:100px;" id="fee84" value="{% if teaminfo %}{{ teaminfo.itemfee.fee84 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>其他</th>
-            <td><input name="fee92"  style="width:100px;" id="fee92"></td>
-            <td><input name="fee93"  style="width:100px;" id="fee93"></td>
-            <td><input name="fee94"  style="width:100px;" id="fee94"></td>
+            <td><input name="fee92"  style="width:100px;" id="fee92" value="{% if teaminfo %}{{ teaminfo.itemfee.fee92 }}{% endif %}"></td>
+            <td><input name="fee93"  style="width:100px;" id="fee93" value="{% if teaminfo %}{{ teaminfo.itemfee.fee93 }}{% endif %}"></td>
+            <td><input name="fee94"  style="width:100px;" id="fee94" value="{% if teaminfo %}{{ teaminfo.itemfee.fee94 }}{% endif %}"></td>
         </tr>
 
         <tr>
             <th>合计</th>
-            <td><input name="fee102"  style="width:100px;" id="fee102"></td>
-            <td><input name="fee103"  style="width:100px;" id="fee103"></td>
-            <td><input name="fee104"  style="width:100px;" id="fee104"></td>
+            <td><input name="fee102"  style="width:100px;" id="fee102" value="{% if teaminfo %}{{ teaminfo.itemfee.fee102 }}{% endif %}"></td>
+            <td><input name="fee103"  style="width:100px;" id="fee103" value="{% if teaminfo %}{{ teaminfo.itemfee.fee103 }}{% endif %}"></td>
+            <td><input name="fee104"  style="width:100px;" id="fee104" value="{% if teaminfo %}{{ teaminfo.itemfee.fee104 }}{% endif %}"></td>
         </tr>
     </table>
 </div>
@@ -167,7 +167,17 @@ laydate.render({
             keyup("fee"+i+"2");
             keyup("fee"+i+"3");
         }
+        //修改时赋值语句
+        {% if teaminfo %}
+            $('#area1').val({{ teaminfo.area1 }})
+            $('#cashtype1').val('{{ teaminfo.cashtype1 }}')
+        {% endif %}
+
+        {% if teaminfo %}
+        {% endif %}
+
 });
+
     var fees = {{ jsonstr | safe }}
 
 

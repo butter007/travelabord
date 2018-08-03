@@ -69,7 +69,6 @@ $(function(){
 															+ '\')">删除</a> ';
 													return c + e + d ;
 												}
-
   },]
 });
 
@@ -81,7 +80,6 @@ $(function(){
 });
 
 function del(id) {
-
 			if(confirm("确定删除?"))
             {
                 $.ajax({
@@ -94,6 +92,11 @@ function del(id) {
 					}
 				});
             }
+}
+
+function input(id)
+{
+    window.location.href = "{{ url_for('main.add') }}?id="+ id
 }
 
 </script>

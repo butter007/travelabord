@@ -14,6 +14,9 @@ def index():
 
 @main.route("/add", methods=['GET', 'POST'])
 def add():
+    id = request.args.get("id",'')
+
+    teaminfo = Teaminfo.query.get(id)
     countryFeeDict = {}
     standardfeelist = StandardFee.query.all()
     for item in standardfeelist:
@@ -25,7 +28,10 @@ def add():
         feeList.append(item.extrafee)
         countryFeeDict[item.id] = feeList
     jsonstr = json.dumps(countryFeeDict)
-    return render_template('add01.html', jsonstr=jsonstr, data=countryFeeDict.items())
+    if id:
+        return render_template('add01.html', teaminfo=teaminfo, jsonstr=jsonstr, data=countryFeeDict.items())
+    else:
+        return render_template('add01.html',  jsonstr=jsonstr, data=countryFeeDict.items())
 
 
 @main.route("/addexecute", methods=['GET', 'POST'])
@@ -73,8 +79,8 @@ def addexecute():
                       fee93=request.form.get('fee93', 0),
                       fee94=request.form.get('fee94', ''),
                       fee102=request.form.get('fee102', 0),
-                      fee103=request.form.get('fee102', 0),
-                      fee104=request.form.get('fee103', ''),
+                      fee103=request.form.get('fee103', 0),
+                      fee104=request.form.get('fee104', ''),
                       teaminfo=teaminfo)
     db.session.add(teaminfo)
     db.session.add(itemfee)
@@ -89,7 +95,8 @@ def jsonlist():
     limit = request.args.get('limit')
     offset = request.args.get('offset')
     totals = Teaminfo.query.count()
-    teaminfolist = Teaminfo.query.filter(Teaminfo.deleteflag==0).limit(limit).offset(offset)
+    # teaminfolist 查询数据包含一个itemfee对象
+    teaminfolist = Teaminfo.query.filter(Teaminfo.deleteflag == 0).limit(limit).offset(offset)
     standardFeelist = StandardFee.query.all()
     stdcountry = {}
     for item in standardFeelist:
@@ -102,9 +109,9 @@ def jsonlist():
         itemdict.pop('itemfee', None)
         itemdict.update(itemfee.__dict__)
         itemdict.pop('_sa_instance_state', None)
-#        itemdict['operation'] = "<a href='#'>修改</a>&nbsp;&nbsp;<a href='#'>核销</a>&nbsp;&nbsp;<a href='#'>删除</a>"
         jsonlist.append(itemdict)
     return json.dumps({'rows': jsonlist, "total": totals})
+
 
 @main.route("/delete", methods=['GET', 'POST'])
 def delete():
@@ -112,4 +119,4 @@ def delete():
     teaminfo = Teaminfo.query.get(id)
     teaminfo.deleteflag = 1
     db.session.add(teaminfo)
-    return json.dumps("succsss")
+    return json.dumps("success")
