@@ -58,12 +58,12 @@ $(function(){
     title: '编辑操作',
       align : 'center',
       formatter : function(value, row, index) {
-													var c = '<a class="green-color" href="#"  onclick="info(\''
+													var c = '<a class="green-color" href="#"  onclick="input(\''
 														+ row.id
-														+ '\')">查看</a> ';
-													var e = '<a class="green-color" href="#"  onclick="input(\''
+														+ '\')">编辑</a> ';
+													var e = '<a class="green-color" href="#"  onclick="veri(\''
 															+ row.id
-															+ '\')">编辑</a> ';
+															+ '\')">核销</a> ';
 													var d = '<a class="red-color" href="#"  onclick="del(\''
 															+ row.id
 															+ '\')">删除</a> ';
@@ -87,7 +87,6 @@ function del(id) {
 					url : "{{ url_for('main.delete')}}?id=" + id ,
 					success : function(data) {
 						alert("删除产品成功!")
-                        alert(data)
 						window.location.href = "{{ url_for('main.index') }}";
 					}
 				});
@@ -97,6 +96,11 @@ function del(id) {
 function input(id)
 {
     window.location.href = "{{ url_for('main.add') }}?id="+ id
+}
+
+function veri(id)
+{
+    window.location.href = "{{ url_for('main.veri') }}?id="+ id
 }
 
 </script>

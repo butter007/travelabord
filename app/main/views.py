@@ -14,8 +14,7 @@ def index():
 
 @main.route("/add", methods=['GET', 'POST'])
 def add():
-    id = request.args.get("id",'')
-
+    id = request.args.get("id", '')
     teaminfo = Teaminfo.query.get(id)
     countryFeeDict = {}
     standardfeelist = StandardFee.query.all()
@@ -31,59 +30,108 @@ def add():
     if id:
         return render_template('add01.html', teaminfo=teaminfo, jsonstr=jsonstr, data=countryFeeDict.items())
     else:
-        return render_template('add01.html',  jsonstr=jsonstr, data=countryFeeDict.items())
+        return render_template('add01.html', jsonstr=jsonstr, data=countryFeeDict.items())
 
 
 @main.route("/addexecute", methods=['GET', 'POST'])
 def addexecute():
-    teaminfo = Teaminfo(peoplesname=request.form.get('peoplesname', ''),
-                        peoples=request.form.get('peoples', 0),
-                        single=request.form.get('single', 0),
-                        days=request.form.get('days', 0),
-                        expectdate=request.form.get('expectdate', ''),
-                        area1=request.form.get('area1', ''),
-                        area1days=request.form.get('area1days', 0),
-                        cashtype1=request.form.get('cashtype1', ''),
-                        area2=request.form.get('area2', ''),
-                        area2days=request.form.get('area2days', 0),
-                        cashtype2=request.form.get('cashtype2', ''),
-                        area3=request.form.get('area3', ''),
-                        area3days=request.form.get('area3days', 0),
-                        cashtype3=request.form.get('cashtype3', ''),
-                        applicationdate=time.strftime('%Y-%m-%d', time.localtime()))
-    itemfee = Itemfee(fee12=request.form.get('fee12', 0),
-                      fee13=request.form.get('fee13', 0),
-                      fee14=request.form.get('fee14', ''),
-                      fee22=request.form.get('fee22', 0),
-                      fee23=request.form.get('fee23', 0),
-                      fee24=request.form.get('fee24', ''),
-                      fee32=request.form.get('fee32', 0),
-                      fee33=request.form.get('fee33', 0),
-                      fee34=request.form.get('fee34', ''),
-                      fee42=request.form.get('fee42', 0),
-                      fee43=request.form.get('fee43', 0),
-                      fee44=request.form.get('fee44', ''),
-                      fee52=request.form.get('fee52', 0),
-                      fee53=request.form.get('fee53', 0),
-                      fee54=request.form.get('fee54', ''),
-                      fee62=request.form.get('fee62', 0),
-                      fee63=request.form.get('fee63', 0),
-                      fee64=request.form.get('fee64', ''),
-                      fee72=request.form.get('fee72', 0),
-                      fee73=request.form.get('fee73', 0),
-                      fee74=request.form.get('fee74', ''),
-                      fee82=request.form.get('fee82', 0),
-                      fee83=request.form.get('fee83', 0),
-                      fee84=request.form.get('fee84', ''),
-                      fee92=request.form.get('fee92', 0),
-                      fee93=request.form.get('fee93', 0),
-                      fee94=request.form.get('fee94', ''),
-                      fee102=request.form.get('fee102', 0),
-                      fee103=request.form.get('fee103', 0),
-                      fee104=request.form.get('fee104', ''),
-                      teaminfo=teaminfo)
+    id = request.form.get('id', '')
+    if id:
+        teaminfo = Teaminfo.query.get(id)
+        teaminfo.peoplesname = request.form.get('peoplesname', '')
+        teaminfo.peoples = request.form.get('peoples', 0)
+        teaminfo.single = request.form.get('single', 0)
+        teaminfo.days = request.form.get('days', 0)
+        teaminfo.expectdate = request.form.get('expectdate', '')
+        teaminfo.area1 = request.form.get('area1', '')
+        teaminfo.area1days = request.form.get('area1days', 0)
+        teaminfo.cashtype1 = request.form.get('cashtype1', '')
+        teaminfo.area2 = request.form.get('area2', '')
+        teaminfo.area2days = request.form.get('area2days', 0)
+        teaminfo.cashtype2 = request.form.get('cashtype2', '')
+        teaminfo.area3 = request.form.get('area3', '')
+        teaminfo.area3days = request.form.get('area3days', 0)
+        teaminfo.cashtype3 = request.form.get('cashtype3', '')
+        teaminfo.applicationdate = time.strftime('%Y-%m-%d', time.localtime())
+        teaminfo.itemfee.fee12 = request.form.get('fee12', 0)
+        teaminfo.itemfee.fee13 = request.form.get('fee13', 0)
+        teaminfo.itemfee.fee14 = request.form.get('fee14', '')
+        teaminfo.itemfee.fee22 = request.form.get('fee22', 0)
+        teaminfo.itemfee.fee23 = request.form.get('fee23', 0)
+        teaminfo.itemfee.fee24 = request.form.get('fee24', '')
+        teaminfo.itemfee.fee32 = request.form.get('fee32', 0)
+        teaminfo.itemfee.fee33 = request.form.get('fee33', 0)
+        teaminfo.itemfee.fee34 = request.form.get('fee34', '')
+        teaminfo.itemfee.fee42 = request.form.get('fee42', 0)
+        teaminfo.itemfee.fee43 = request.form.get('fee43', 0)
+        teaminfo.itemfee.fee44 = request.form.get('fee44', '')
+        teaminfo.itemfee.fee52 = request.form.get('fee52', 0)
+        teaminfo.itemfee.fee53 = request.form.get('fee53', 0)
+        teaminfo.itemfee.fee54 = request.form.get('fee54', '')
+        teaminfo.itemfee.fee62 = request.form.get('fee62', 0)
+        teaminfo.itemfee.fee63 = request.form.get('fee63', 0)
+        teaminfo.itemfee.fee64 = request.form.get('fee64', '')
+        teaminfo.itemfee.fee72 = request.form.get('fee72', 0)
+        teaminfo.itemfee.fee73 = request.form.get('fee73', 0)
+        teaminfo.itemfee.fee74 = request.form.get('fee74', '')
+        teaminfo.itemfee.fee82 = request.form.get('fee82', 0)
+        teaminfo.itemfee.fee83 = request.form.get('fee83', 0)
+        teaminfo.itemfee.fee84 = request.form.get('fee84', '')
+        teaminfo.itemfee.fee92 = request.form.get('fee92', 0)
+        teaminfo.itemfee.fee93 = request.form.get('fee93', 0)
+        teaminfo.itemfee.fee94 = request.form.get('fee94', '')
+        teaminfo.itemfee.fee102 = request.form.get('fee102', 0)
+        teaminfo.itemfee.fee103 = request.form.get('fee103', 0)
+        teaminfo.itemfee.fee104 = request.form.get('fee104', '')
+    else:
+        teaminfo = Teaminfo(peoplesname=request.form.get('peoplesname', ''),
+                            peoples=request.form.get('peoples', 0),
+                            single=request.form.get('single', 0),
+                            days=request.form.get('days', 0),
+                            expectdate=request.form.get('expectdate', ''),
+                            area1=request.form.get('area1', ''),
+                            area1days=request.form.get('area1days', 0),
+                            cashtype1=request.form.get('cashtype1', ''),
+                            area2=request.form.get('area2', ''),
+                            area2days=request.form.get('area2days', 0),
+                            cashtype2=request.form.get('cashtype2', ''),
+                            area3=request.form.get('area3', ''),
+                            area3days=request.form.get('area3days', 0),
+                            cashtype3=request.form.get('cashtype3', ''),
+                            applicationdate=time.strftime('%Y-%m-%d', time.localtime()))
+        itemfee = Itemfee(fee12=request.form.get('fee12', 0),
+                          fee13=request.form.get('fee13', 0),
+                          fee14=request.form.get('fee14', ''),
+                          fee22=request.form.get('fee22', 0),
+                          fee23=request.form.get('fee23', 0),
+                          fee24=request.form.get('fee24', ''),
+                          fee32=request.form.get('fee32', 0),
+                          fee33=request.form.get('fee33', 0),
+                          fee34=request.form.get('fee34', ''),
+                          fee42=request.form.get('fee42', 0),
+                          fee43=request.form.get('fee43', 0),
+                          fee44=request.form.get('fee44', ''),
+                          fee52=request.form.get('fee52', 0),
+                          fee53=request.form.get('fee53', 0),
+                          fee54=request.form.get('fee54', ''),
+                          fee62=request.form.get('fee62', 0),
+                          fee63=request.form.get('fee63', 0),
+                          fee64=request.form.get('fee64', ''),
+                          fee72=request.form.get('fee72', 0),
+                          fee73=request.form.get('fee73', 0),
+                          fee74=request.form.get('fee74', ''),
+                          fee82=request.form.get('fee82', 0),
+                          fee83=request.form.get('fee83', 0),
+                          fee84=request.form.get('fee84', ''),
+                          fee92=request.form.get('fee92', 0),
+                          fee93=request.form.get('fee93', 0),
+                          fee94=request.form.get('fee94', ''),
+                          fee102=request.form.get('fee102', 0),
+                          fee103=request.form.get('fee103', 0),
+                          fee104=request.form.get('fee104', ''),
+                          teaminfo=teaminfo)
     db.session.add(teaminfo)
-    db.session.add(itemfee)
+    #    db.session.add(itemfee)
     db.session.commit()
     return redirect(url_for('main.index'))
 
@@ -120,3 +168,28 @@ def delete():
     teaminfo.deleteflag = 1
     db.session.add(teaminfo)
     return json.dumps("success")
+
+
+@main.route("/veri", methods=['GET', 'POST'])
+def veri():
+    id = request.args.get("id", '')
+    teaminfo = Teaminfo.query.get(id)
+    countryFeeDict = {}
+    standardfeelist = StandardFee.query.all()
+    for item in standardfeelist:
+        feeList = []
+        feeList.append(item.country)
+        feeList.append(item.type)
+        feeList.append(item.hotelexpense)
+        feeList.append(item.boardwages)
+        feeList.append(item.extrafee)
+        countryFeeDict[item.id] = feeList
+    jsonstr = json.dumps(countryFeeDict)
+    return render_template('actualfee.html', teaminfo=teaminfo, jsonstr=jsonstr, data=countryFeeDict.items())
+
+@main.route("/veriexecute", methods=['GET', 'POST'])
+def veriexecute():
+    id = request.form.get('id')
+    teaminfo = Teaminfo.query.get(id)
+    return 1
+
