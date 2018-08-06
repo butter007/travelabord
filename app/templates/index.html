@@ -20,13 +20,12 @@
 
 $(function(){
     var t = $('#table').bootstrapTable({
-  url: "{{ url_for('main.jsonlist') }}",
+    url: "{{ url_for('main.jsonlist') }}",
     striped: true,
     pagination: true,
     showRefresh: true,
     paginationPreText:'上一页',
     paginationNextText:'下一页',
-    search:true,
     buttonsAlign: "right",
     sidePagination: "server",
     pageNumber:1,
@@ -58,16 +57,29 @@ $(function(){
     title: '编辑操作',
       align : 'center',
       formatter : function(value, row, index) {
-													var c = '<a class="green-color" href="#"  onclick="input(\''
+													var c = '<a class="green-color" href="#" style="color: green" onclick="input(\''
 														+ row.id
 														+ '\')">编辑</a> ';
-													var e = '<a class="green-color" href="#"  onclick="veri(\''
+													if (row.certiflag == 1)
+                                                    {
+                                                        var e = '<a class="green-color" href="#" id="veri" onclick="return false" style="opacity: 0.2">核销</a> ';
+                                                        var f = '<a class="green-color"  href="#" id="veri" onclick="check(\''
+															+ row.id
+															+ '\')">查看</a> ';
+                                                    }
+													    else
+													        {
+													            var e = '<a href="#" id="veri" onclick="veri(\''
 															+ row.id
 															+ '\')">核销</a> ';
-													var d = '<a class="red-color" href="#"  onclick="del(\''
+													            var f = '<a href="#" id="veri" onclick="return false" style="opacity: 0.2" onclick="check(\''
+															+ row.id
+															+ '\')">查看</a> ';
+                                                            }
+													var d = '<a href="#"  style="color:red" onclick="del(\''
 															+ row.id
 															+ '\')">删除</a> ';
-													return c + e + d ;
+													return c + e + f + d ;
 												}
   },]
 });
@@ -76,7 +88,10 @@ $(function(){
      t.on('load-success.bs.table', function (data) {//table加载成功后的监听函数
         console.log("load success");
         $(".pull-right").css("display", "block");
+
+
     });
+
 });
 
 function del(id) {
@@ -103,5 +118,9 @@ function veri(id)
     window.location.href = "{{ url_for('main.veri') }}?id="+ id
 }
 
+function check(id)
+{
+    window.location.href = "{{ url_for('main.check') }}?id="+ id
+}
 </script>
 {% endblock %}

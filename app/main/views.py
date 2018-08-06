@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, current_app, request
 import json
-from ..models import Teaminfo, Itemfee, StandardFee
+from ..models import Teaminfo, Itemfee, StandardFee, ActualItemfee
 from .. import db
 from ..models import StandardFee
 from . import main
@@ -142,7 +142,7 @@ def jsonlist():
     jsonlist = []
     limit = request.args.get('limit')
     offset = request.args.get('offset')
-    totals = Teaminfo.query.count()
+    totals = Teaminfo.query.filter(Teaminfo.deleteflag == 0).count()
     # teaminfolist 查询数据包含一个itemfee对象
     teaminfolist = Teaminfo.query.filter(Teaminfo.deleteflag == 0).limit(limit).offset(offset)
     standardFeelist = StandardFee.query.all()
@@ -157,6 +157,11 @@ def jsonlist():
         itemdict.pop('itemfee', None)
         itemdict.update(itemfee.__dict__)
         itemdict.pop('_sa_instance_state', None)
+        actualItemfee = itemdict.get('actualItemfee')
+        if actualItemfee is not None:
+            itemdict.pop('actualItemfee',None)
+            itemdict.update(actualItemfee.__dict__)
+            itemdict.pop('_sa_instance_state', None)
         jsonlist.append(itemdict)
     return json.dumps({'rows': jsonlist, "total": totals})
 
@@ -187,9 +192,67 @@ def veri():
     jsonstr = json.dumps(countryFeeDict)
     return render_template('actualfee.html', teaminfo=teaminfo, jsonstr=jsonstr, data=countryFeeDict.items())
 
+
 @main.route("/veriexecute", methods=['GET', 'POST'])
 def veriexecute():
     id = request.form.get('id')
     teaminfo = Teaminfo.query.get(id)
-    return 1
+    actualItemfee = ActualItemfee()
+    actualItemfee.actualpeoples =request.form.get('actualpeoples', '')
+    actualItemfee.actualdays = request.form.get('actualdays', '')
+    actualItemfee.departuredate = request.form.get('departuredate', '')
+    actualItemfee.entrydate = request.form.get('entrydate', '')
+    actualItemfee.acturalarea1 = request.form.get('acturalarea1', '')
+    actualItemfee.actualarea1days = request.form.get('actualarea1days', '')
+    actualItemfee.actualcashtype1 = request.form.get('actualcashtype1', '')
+    actualItemfee.actualarea2 = request.form.get('actualarea2', '')
+    actualItemfee.actualarea2days = request.form.get('actualarea2days', '')
+    actualItemfee.actualcashtype2 = request.form.get('actualcashtype2', '')
+    actualItemfee.actualarea3 = request.form.get('actualarea3', '')
+    actualItemfee.actualarea3days = request.form.get('actualarea3days', '')
+    actualItemfee.actualcashtype3 = request.form.get('actualcashtype3', '')
+    actualItemfee.fee15=request.form.get('fee15', '')
+    actualItemfee.fee16=request.form.get('fee16', '')
+    actualItemfee.fee17=request.form.get('fee17', '')
+    actualItemfee.fee25=request.form.get('fee25', '')
+    actualItemfee.fee26=request.form.get('fee26', '')
+    actualItemfee.fee27=request.form.get('fee27', '')
+    actualItemfee.fee35=request.form.get('fee35', '')
+    actualItemfee.fee36=request.form.get('fee36', '')
+    actualItemfee.fee37=request.form.get('fee37', '')
+    actualItemfee.fee45=request.form.get('fee45', '')
+    actualItemfee.fee46=request.form.get('fee46', '')
+    actualItemfee.fee47=request.form.get('fee47', '')
+    actualItemfee.fee55=request.form.get('fee55', '')
+    actualItemfee.fee56=request.form.get('fee56', '')
+    actualItemfee.fee57=request.form.get('fee57', '')
+    actualItemfee.fee65=request.form.get('fee65', '')
+    actualItemfee.fee66=request.form.get('fee66', '')
+    actualItemfee.fee67=request.form.get('fee67', '')
+    actualItemfee.fee75=request.form.get('fee75', '')
+    actualItemfee.fee76=request.form.get('fee76', '')
+    actualItemfee.fee77=request.form.get('fee77', '')
+    actualItemfee.fee85=request.form.get('fee85', '')
+    actualItemfee.fee86=request.form.get('fee86', '')
+    actualItemfee.fee87=request.form.get('fee87', '')
+    teaminfo.certiflag = 1
+    teaminfo.actualItemfee = actualItemfee
+    db.session.add(teaminfo)
+    return render_template('index.html')
 
+@main.route("/check", methods=['GET', 'POST'])
+def check():
+    id = request.args.get("id", '')
+    teaminfo = Teaminfo.query.get(id)
+    countryFeeDict = {}
+    standardfeelist = StandardFee.query.all()
+    for item in standardfeelist:
+        feeList = []
+        feeList.append(item.country)
+        feeList.append(item.type)
+        feeList.append(item.hotelexpense)
+        feeList.append(item.boardwages)
+        feeList.append(item.extrafee)
+        countryFeeDict[item.id] = feeList
+    jsonstr = json.dumps(countryFeeDict)
+    return render_template('actualfee.html', teaminfo=teaminfo, jsonstr=jsonstr, data=countryFeeDict.items())
